@@ -1,0 +1,55 @@
+Build a complete MVP web app in Python using Streamlit called "PoliSee Clarity".
+
+What the app does (high-level description to show users):
+PoliSee Clarity is a consumer-first tool that helps homeowners understand their existing homeowners insurance policy before a disaster happens. 
+Users upload their current policy PDF → choose a "what if" scenario (like burst pipe, hail on roof, basement flood, hurricane, fire, tree falling on house, etc.) → the app uses OpenAI to analyze the actual policy document and instantly shows:
+- What is covered vs. what is excluded
+- Estimated out-of-pocket costs (after deductible, depreciation, etc.)
+- Gap alerts (e.g., "Flood/seepage not covered – consider adding endorsement")
+- Plain-language summary and recommendations
+The goal is transparency and preparation: "Understand. Prepare. Protect." before a claim is ever filed. It empowers users to avoid nasty surprises like denied claims or huge uncovered losses.
+
+Technical requirements for the MVP:
+- Mobile-first responsive design (works well on phones and desktop)
+- Clean navy-blue theme with good typography for small screens
+- Use Streamlit components: title, description, file_uploader (PDF only), selectbox for scenarios, expanders, metrics, dataframes/tables, warnings/errors for UX
+- Welcome screen: big title "PoliSee Clarity: Understand. Prepare. Protect.", short pitch paragraph, upload area
+- Scenarios dropdown: Burst Pipe / Interior Water Leak, Roof Hail Damage, Basement Flood (Groundwater Seepage), Fence Wind Damage, Tree Damage to Dwelling, Appliance Power Surge, Hurricane, Fire, Theft
+- When PDF is uploaded:
+  - Use openai Python client to upload the file to OpenAI Files API with purpose='user_data'
+  - Get the file_id
+  - Show success message and file_id in debug expander
+- When scenario is selected and file exists:
+  - Call OpenAI Chat Completions (model='gpt-4o-mini' or 'gpt-4o') 
+  - Pass the file_id directly in the content array as a document reference
+  - Use a strong system prompt that tells the model:
+    - You are an expert homeowners insurance policy analyzer for PoliSee Clarity
+    - Analyze ONLY the uploaded policy PDF for the given scenario
+    - Be conservative, reference typical policy language (sudden/accidental discharge, surface water exclusion, wear & tear, etc.)
+    - Output ONLY valid JSON with these exact keys:
+      - covered_items: array of objects [{item: str, est_replacement_cost: number, depreciation_pct: number, acv_payout: number}]
+      - not_covered_items: array of strings or objects
+      - deductible: number
+      - total_out_of_pocket: number or null
+      - gap_alerts: array of strings (e.g. "Flood not covered", "Mold from long-term seepage excluded")
+      - recommendations: array of strings
+      - plain_summary: short plain-language explanation (2-4 sentences)
+  - Parse the JSON response
+  - Display results beautifully:
+    - st.metric for "Estimated Out-of-Pocket" and "Policy Health Score" (100 - (len(gaps) * 20), min 0)
+    - st.dataframe for covered/not-covered breakdown (nice columns)
+    - st.warning / st.error / st.success for gap alerts and coverage status
+    - Expander for full summary and recommendations
+- Backend storage: Use Replit's native PostgreSQL database
+  - Table: policy_analysis_results
+  - Columns: id (SERIAL PRIMARY KEY), upload_timestamp (TIMESTAMP DEFAULT NOW()), scenario (TEXT), file_id (TEXT), openai_response_json (TEXT), out_of_pocket_estimate (NUMERIC), gap_alerts (TEXT), user_session_id (TEXT optional)
+  - After each successful analysis, INSERT the key data
+- Add a "View Backend Data" expander/button at bottom that runs SELECT * FROM policy_analysis_results ORDER BY upload_timestamp DESC LIMIT 10; and shows in st.dataframe
+- Handle OpenAI API key securely via st.secrets["OPENAI_API_KEY"] (instruct user to add it in Replit Secrets)
+- Error handling: friendly messages for no file, invalid key, API errors, bad JSON, PDF too large
+- Install required packages: streamlit, openai, psycopg2-binary
+- Add basic session state to remember file_id across reruns in the same session
+- Mobile optimizations: use expanders heavily, scrollable tables, touch-friendly buttons, custom CSS for padding/font on small screens
+- Footer: "Understand. Prepare. Protect." + small text "PoliSee Clarity – Insurance made clear"
+
+Generate the full main.py file with all imports, connection functions, and the complete Streamlit app structure. Make it ready to run after adding the OpenAI key in secrets.
