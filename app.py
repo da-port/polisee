@@ -298,27 +298,26 @@ Please provide a detailed breakdown of what would be covered, what would not be 
 
     try:
         # the newest OpenAI model is "gpt-5" which was released August 7, 2025.
-        # do not change this unless explicitly requested by the user
-        response = client.chat.completions.create(
+        # Using responses API with file input for PDF analysis
+        response = client.responses.create(
             model="gpt-4o",
-            messages=[
+            input=[
                 {"role": "system", "content": system_prompt},
                 {
                     "role": "user",
                     "content": [
-                        {"type": "text", "text": user_prompt},
+                        {"type": "input_text", "text": user_prompt},
                         {
-                            "type": "file",
-                            "file": {"file_id": file_id}
+                            "type": "input_file",
+                            "file_id": file_id
                         }
                     ]
                 }
             ],
-            response_format={"type": "json_object"},
-            max_tokens=4096
+            text={"format": {"type": "json_object"}}
         )
         
-        result = json.loads(response.choices[0].message.content)
+        result = json.loads(response.output_text)
         return result, None
     except json.JSONDecodeError as e:
         return None, f"Failed to parse AI response: {str(e)}"
@@ -557,23 +556,6 @@ def show_main_app():
             st.dataframe(pd.DataFrame(history_data), use_container_width=True, hide_index=True)
         else:
             st.info("No analysis history yet. Upload a policy to get started!")
-    
-    with st.expander("🗄️ View Backend Data (All Users)"):
-        all_analyses = get_recent_analyses()
-        if all_analyses:
-            backend_data = []
-            for analysis in all_analyses:
-                backend_data.append({
-                    "ID": analysis.id,
-                    "User ID": analysis.user_id,
-                    "Timestamp": analysis.upload_timestamp.strftime("%Y-%m-%d %H:%M"),
-                    "Scenario": analysis.scenario,
-                    "File ID": analysis.file_id[:20] + "..." if analysis.file_id else "N/A",
-                    "Out-of-Pocket": float(analysis.out_of_pocket_estimate) if analysis.out_of_pocket_estimate else None
-                })
-            st.dataframe(pd.DataFrame(backend_data), use_container_width=True, hide_index=True)
-        else:
-            st.info("No analyses in the database yet.")
     
     st.markdown("---")
     st.markdown("""
