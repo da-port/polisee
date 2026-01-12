@@ -139,7 +139,7 @@ CUSTOM_CSS = """
         animation: fadeInUp 0.8s ease-out 0.3s both;
     }
     
-    .auth-card {
+    .stTabs {
         background: rgba(30, 41, 59, 0.5);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -673,8 +673,6 @@ def show_auth_page():
         </div>
     """, unsafe_allow_html=True)
     
-    st.markdown('<div class="auth-card">', unsafe_allow_html=True)
-    
     tab1, tab2 = st.tabs(["Login", "Register"])
     
     with tab1:
@@ -751,8 +749,6 @@ def show_auth_page():
             st.markdown('<div class="social-btn">🍎 Apple</div>', unsafe_allow_html=True)
         with col2:
             st.markdown('<div class="social-btn">🔵 Google</div>', unsafe_allow_html=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("""
         <div class="landing-footer">
