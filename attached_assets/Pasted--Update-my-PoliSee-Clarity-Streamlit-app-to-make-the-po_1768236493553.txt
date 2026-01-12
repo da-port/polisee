@@ -1,0 +1,33 @@
+"Update my PoliSee Clarity Streamlit app to make the post-login dashboard and all main app pages match the modern dark-mode login styling. Apply consistent premium insurtech design across the entire app after login:
+
+Global CSS overrides (via st.markdown unsafe_allow_html=True at the very top):
+App background: linear-gradient(to bottom right, #0f172a, #1e293b) or subtle radial gradient
+Import Google Fonts: Inter or Roboto for clean sans-serif typography
+Dark theme base: dark text on dark bg with light accents (text #e2e8f0, accents #0ea5e9 teal or #3b82f6 blue)
+Card style: semi-transparent dark cards (bg #1e293b / #334155 with 0.1 opacity overlay, border-radius 16px, subtle box-shadow, backdrop-filter blur(8px) if supported)
+Buttons: gradient fill (teal to blue), rounded, hover scale(1.05) + brightness, large touch targets
+Inputs/selectboxes: dark bg, light border, floating labels, focus glow in teal
+Metrics: large bold numbers in accent color, small delta/subtext
+Tables/dataframes: striped dark rows, hover highlight, scrollable on mobile
+Hide Streamlit default menu/header/footer completely (use CSS display:none on .stDeployButton, header, etc.)
+Mobile-first: stack everything vertically on <768px, generous padding (2-4rem), readable font sizes (min 16px)
+
+Post-login structure (when st.session_state.logged_in):
+Top hero/welcome bar: subtle gradient header with 'Welcome back, [User/First Name]' (pull from session if available), small profile icon/logout button on right
+Main content: centered max-width container (~900-1100px) for readability on desktop
+Key sections in modern cards:
+Quick Start Card: prominent 'Upload Your Policy PDF' drag-drop uploader (styled file input with icon, teal border on hover)
+Scenario Selector: large selectbox or horizontal scrollable cards/icons for scenarios (Burst Pipe, Hail, Flood, etc.) with emoji icons (💧🌧️🔥 etc.), subtle hover lift
+Results Dashboard (after analysis): grid of st.metric cards (Out-of-Pocket, Policy Health Score, Gaps Detected) in 1-3 column layout (stack on mobile)
+Coverage Breakdown: clean dataframe/table inside card with covered (green check), partial (yellow), excluded (red) rows
+Gap Alerts & Recommendations: accordion/expander with warning icons and actionable buttons
+
+Sidebar (collapsible on mobile): quick links (My Policies, Past Analyses, Settings, Logout), small trust badges ('Secure • Private • AI-Powered')
+Footer: fixed or bottom 'Understand. Prepare. Protect.' + version/privacy link
+
+Catchphrase integration: After login, show a subtle rotating or static hero tagline below welcome: 'Know What's Covered – Before You Need It.' in large elegant font with slight gradient text or underline accent
+Add micro-animations if possible (CSS fade-in on load for cards/metrics, button pulse on CTA)
+Ensure OpenAI upload/analysis flow fits seamlessly: loading spinner with 'Decoding your policy...' message in a centered overlay card
+Make 'View Backend Data' debug section a collapsible admin card (only visible if dev mode or something)
+
+Generate the updated code structure: global CSS block first, then conditional login vs dashboard render, with all Streamlit elements styled consistently. Keep existing OpenAI/DB logic but wrap UI in the new modern layout."

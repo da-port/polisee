@@ -64,6 +64,10 @@ CUSTOM_CSS = """
     
     .main .block-container {
         padding: 2rem 1.5rem 4rem 1.5rem;
+        max-width: 1100px;
+    }
+    
+    .main .block-container.auth-page {
         max-width: 420px;
     }
     
@@ -439,6 +443,591 @@ CUSTOM_CSS = """
         margin-top: 0.5rem;
     }
     
+    /* Section headers */
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .section-icon {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #f1f5f9;
+    }
+    
+    .section-header.warning-header {
+        border-bottom-color: rgba(245, 158, 11, 0.4);
+    }
+    
+    .section-header.warning-header .section-title {
+        color: #fcd34d;
+    }
+    
+    .section-header.results-section {
+        margin-top: 2rem;
+    }
+    
+    /* Scenario grid buttons */
+    [data-testid="stVerticalBlock"] > div:has(button[key^="scenario"]) button,
+    div[data-testid="column"] button {
+        background: rgba(15, 23, 42, 0.7) !important;
+        border: 1px solid rgba(71, 85, 105, 0.4) !important;
+        border-radius: 14px !important;
+        padding: 1.25rem 0.75rem !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+        transition: all 0.3s ease !important;
+        min-height: 80px !important;
+        white-space: pre-wrap !important;
+        line-height: 1.4 !important;
+    }
+    
+    div[data-testid="column"] button:hover {
+        border-color: #0ea5e9 !important;
+        background: rgba(14, 165, 233, 0.15) !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 25px rgba(14, 165, 233, 0.25) !important;
+    }
+    
+    /* Container styling for dashboard sections with border=True */
+    [data-testid="stVerticalBlockBorderWrapper"],
+    .stContainer > div[data-testid="stVerticalBlock"] > div:has([data-testid="stFileUploader"]),
+    div[data-testid="stExpander"] {
+        background: rgba(30, 41, 59, 0.6) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(71, 85, 105, 0.35) !important;
+        border-radius: 16px !important;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    [data-testid="stVerticalBlockBorderWrapper"]:hover {
+        border-color: rgba(14, 165, 233, 0.3) !important;
+    }
+    
+    /* Dashboard-specific styles */
+    .welcome-bar {
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
+        border: 1px solid rgba(14, 165, 233, 0.2);
+        border-radius: 20px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .welcome-text h2 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #f8fafc !important;
+    }
+    
+    .welcome-tagline {
+        font-size: 1rem;
+        color: #0ea5e9;
+        font-weight: 500;
+    }
+    
+    .dashboard-card {
+        background: rgba(30, 41, 59, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(71, 85, 105, 0.3);
+        border-radius: 20px;
+        padding: 1.75rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.4);
+        animation: fadeInUp 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .dashboard-card:hover {
+        border-color: rgba(14, 165, 233, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 15px 50px -15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .card-header-icon {
+        font-size: 1.5rem;
+    }
+    
+    .card-header-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #f1f5f9;
+        margin: 0;
+    }
+    
+    .upload-zone {
+        border: 2px dashed rgba(14, 165, 233, 0.4);
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        background: rgba(14, 165, 233, 0.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .upload-zone:hover {
+        border-color: #0ea5e9;
+        background: rgba(14, 165, 233, 0.1);
+        transform: scale(1.01);
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+    
+    .upload-text {
+        color: #94a3b8;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .upload-hint {
+        color: #64748b;
+        font-size: 0.85rem;
+    }
+    
+    .scenario-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .scenario-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(71, 85, 105, 0.3);
+        border-radius: 14px;
+        padding: 1.25rem 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .scenario-card:hover {
+        border-color: #0ea5e9;
+        background: rgba(14, 165, 233, 0.1);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+    }
+    
+    .scenario-card.active {
+        border-color: #0ea5e9;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(6, 182, 212, 0.15) 100%);
+        box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+    }
+    
+    .scenario-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .scenario-name {
+        font-size: 0.85rem;
+        color: #e2e8f0;
+        font-weight: 500;
+    }
+    
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+        margin: 1.5rem 0;
+    }
+    
+    .metric-card-new {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        animation: fadeInUp 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+    
+    .metric-card-new:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .metric-card-new.accent {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        border-color: transparent;
+    }
+    
+    .metric-card-new.warning {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        border-color: transparent;
+    }
+    
+    .metric-card-new.success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-color: transparent;
+    }
+    
+    .metric-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-value-lg {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.25rem;
+    }
+    
+    .metric-label-sm {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+    }
+    
+    .metric-delta {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.5rem;
+    }
+    
+    .results-section {
+        animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+    
+    .gap-alert {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        animation: fadeInUp 0.4s ease-out;
+    }
+    
+    .gap-alert-icon {
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+    
+    .gap-alert-text {
+        color: #fcd34d;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .coverage-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    .coverage-table th {
+        background: rgba(15, 23, 42, 0.8);
+        color: #94a3b8;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .coverage-table td {
+        padding: 1rem;
+        color: #e2e8f0;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+    }
+    
+    .coverage-table tr:nth-child(even) {
+        background: rgba(15, 23, 42, 0.3);
+    }
+    
+    .coverage-table tr:hover {
+        background: rgba(14, 165, 233, 0.1);
+    }
+    
+    .status-covered {
+        color: #10b981;
+        font-weight: 600;
+    }
+    
+    .status-partial {
+        color: #f59e0b;
+        font-weight: 600;
+    }
+    
+    .status-excluded {
+        color: #ef4444;
+        font-weight: 600;
+    }
+    
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+    
+    .loading-card {
+        background: rgba(30, 41, 59, 0.9);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 20px;
+        padding: 3rem;
+        text-align: center;
+        max-width: 400px;
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .loading-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    .loading-text {
+        color: #0ea5e9;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .loading-subtext {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+    
+    .sidebar-section {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: #94a3b8;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-bottom: 0.5rem;
+    }
+    
+    .sidebar-link:hover {
+        background: rgba(14, 165, 233, 0.1);
+        color: #0ea5e9;
+    }
+    
+    .sidebar-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid rgba(71, 85, 105, 0.3);
+        border-radius: 8px;
+        font-size: 0.75rem;
+        color: #64748b;
+        margin: 0.25rem;
+    }
+    
+    .analyze-btn {
+        background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%) !important;
+        font-size: 1.1rem !important;
+        padding: 1.25rem 2rem !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    .analyze-btn:hover {
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 15px 40px rgba(14, 165, 233, 0.5) !important;
+    }
+    
+    .stDataFrame {
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 12px;
+        border: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .stDataFrame [data-testid="stDataFrameResizable"] {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .debug-card {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px dashed rgba(71, 85, 105, 0.4);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .stFileUploader {
+        background: rgba(14, 165, 233, 0.05);
+        border: 2px dashed rgba(14, 165, 233, 0.3);
+        border-radius: 16px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stFileUploader:hover {
+        border-color: #0ea5e9;
+        background: rgba(14, 165, 233, 0.1);
+    }
+    
+    .stFileUploader label {
+        color: #94a3b8 !important;
+    }
+    
+    .stSelectbox label {
+        color: #94a3b8 !important;
+        font-weight: 600;
+    }
+    
+    .stSelectbox [data-baseweb="select"] {
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 12px;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div {
+        background: rgba(15, 23, 42, 0.9);
+        border: 2px solid rgba(71, 85, 105, 0.4);
+        border-radius: 12px;
+        color: #f1f5f9;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div:focus-within {
+        border-color: #0ea5e9;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+    }
+    
+    [data-baseweb="popover"] {
+        background: #1e293b !important;
+        border: 1px solid rgba(71, 85, 105, 0.4) !important;
+        border-radius: 12px !important;
+    }
+    
+    [data-baseweb="menu"] {
+        background: #1e293b !important;
+    }
+    
+    [data-baseweb="menu"] li {
+        color: #e2e8f0 !important;
+    }
+    
+    [data-baseweb="menu"] li:hover {
+        background: rgba(14, 165, 233, 0.2) !important;
+    }
+    
+    .stMetric {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 16px;
+        padding: 1.25rem !important;
+    }
+    
+    .stMetric label {
+        color: #94a3b8 !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .stMetric [data-testid="stMetricValue"] {
+        color: #0ea5e9 !important;
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+    }
+    
+    .stMetric [data-testid="stMetricDelta"] {
+        color: #64748b !important;
+    }
+    
+    .dashboard-footer {
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(51, 65, 85, 0.3);
+    }
+    
+    .dashboard-footer-tagline {
+        font-size: 1.25rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #0ea5e9, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.75rem;
+    }
+    
+    .dashboard-footer-brand {
+        color: #64748b;
+        font-size: 0.875rem;
+    }
+    
+    .stSuccess {
+        background: rgba(16, 185, 129, 0.15) !important;
+        border: 1px solid rgba(16, 185, 129, 0.3) !important;
+        border-radius: 12px !important;
+    }
+    
+    .stWarning {
+        background: rgba(245, 158, 11, 0.15) !important;
+        border: 1px solid rgba(245, 158, 11, 0.3) !important;
+        border-radius: 12px !important;
+    }
+    
+    .stError {
+        background: rgba(239, 68, 68, 0.15) !important;
+        border: 1px solid rgba(239, 68, 68, 0.3) !important;
+        border-radius: 12px !important;
+    }
+    
+    .stInfo {
+        background: rgba(14, 165, 233, 0.15) !important;
+        border: 1px solid rgba(14, 165, 233, 0.3) !important;
+        border-radius: 12px !important;
+    }
+    
     @media (max-width: 600px) {
         .main .block-container {
             padding: 1.25rem 1rem 3rem 1rem;
@@ -762,35 +1351,45 @@ def show_auth_page():
     """, unsafe_allow_html=True)
 
 def show_main_app():
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.markdown("# 🏠 PoliSee Clarity")
-        st.markdown(f"*Logged in as: {st.session_state.user_email}*")
+    user_email = st.session_state.user_email
+    user_name = user_email.split('@')[0].title()
+    
+    st.markdown(f"""
+        <div class="welcome-bar">
+            <div class="welcome-text">
+                <h2>Welcome back, {user_name}</h2>
+                <div class="welcome-tagline">Know What's Covered - Before You Need It.</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([6, 1, 1])
     with col2:
+        st.markdown(f"<div style='color: #64748b; font-size: 0.85rem; text-align: right;'>{user_email}</div>", unsafe_allow_html=True)
+    with col3:
         if st.button("Logout", key="logout_btn"):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
     
-    st.markdown("### Understand. Prepare. Protect.")
-    st.markdown("""
-    Upload your homeowners insurance policy PDF and select a disaster scenario. 
-    We'll analyze your coverage and show you exactly what's protected—and what's not—before you ever file a claim.
-    """)
-    
-    st.markdown("---")
-    
     client = get_openai_client()
     if not client:
-        st.error("⚠️ OpenAI API key not configured. Please add OPENAI_API_KEY to your secrets.")
+        st.error("OpenAI API key not configured. Please add OPENAI_API_KEY to your secrets.")
         st.stop()
     
-    st.markdown("### 📄 Upload Your Policy")
-    uploaded_file = st.file_uploader(
-        "Choose your insurance policy PDF",
-        type=['pdf'],
-        help="Upload your current homeowners insurance policy document (PDF format, max 20MB)"
-    )
+    with st.container(border=True):
+        st.markdown("""
+            <div class="section-header">
+                <span class="section-icon">📄</span>
+                <span class="section-title">Upload Your Policy</span>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        uploaded_file = st.file_uploader(
+            "Drop your insurance policy PDF here or click to browse",
+            type=['pdf'],
+            help="Upload your current homeowners insurance policy document (PDF format, max 20MB)"
+        )
     
     if uploaded_file:
         file_size_mb = uploaded_file.size / (1024 * 1024)
@@ -807,23 +1406,56 @@ def show_main_app():
                 st.session_state.file_id = file_id
                 st.session_state.uploaded_filename = uploaded_file.name
         
-        st.success(f"✅ Policy uploaded successfully: {uploaded_file.name}")
+        st.success(f"Policy uploaded successfully: {uploaded_file.name}")
         
-        with st.expander("🔧 Debug Info"):
+        with st.expander("Developer Debug Info", expanded=False):
+            st.markdown('<div class="debug-card">', unsafe_allow_html=True)
             st.code(f"File ID: {st.session_state.file_id}")
             st.code(f"File Size: {file_size_mb:.2f} MB")
+            st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown("### 🌪️ Select a Scenario")
-    scenario = st.selectbox(
-        "What disaster scenario would you like to analyze?",
-        SCENARIOS,
-        index=0,
-        help="Choose a potential disaster to see how your policy would respond"
-    )
+    scenario_icons = {
+        "Burst Pipe / Interior Water Leak": "💧",
+        "Roof Hail Damage": "🌨️",
+        "Basement Flood (Groundwater Seepage)": "🌊",
+        "Fence Wind Damage": "💨",
+        "Tree Damage to Dwelling": "🌳",
+        "Appliance Power Surge": "⚡",
+        "Hurricane": "🌀",
+        "Fire": "🔥",
+        "Theft": "🔒"
+    }
     
-    if scenario != "Select a scenario..." and 'file_id' in st.session_state:
-        if st.button("🔍 Analyze My Coverage", key="analyze_btn"):
-            with st.spinner("Analyzing your policy... This may take a moment."):
+    if 'selected_scenario' not in st.session_state:
+        st.session_state.selected_scenario = None
+    
+    with st.container(border=True):
+        st.markdown("""
+            <div class="section-header">
+                <span class="section-icon">🌪️</span>
+                <span class="section-title">Select a Disaster Scenario</span>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        scenario_list = [s for s in SCENARIOS if s != "Select a scenario..."]
+        
+        cols = st.columns(3)
+        for idx, scenario_name in enumerate(scenario_list):
+            col_idx = idx % 3
+            icon = scenario_icons.get(scenario_name, "🔍")
+            with cols[col_idx]:
+                is_selected = st.session_state.selected_scenario == scenario_name
+                if st.button(f"{icon}\n{scenario_name}", key=f"scenario_{idx}", use_container_width=True):
+                    st.session_state.selected_scenario = scenario_name
+                    st.rerun()
+    
+    scenario = st.session_state.selected_scenario
+    
+    if scenario and 'file_id' in st.session_state:
+        icon = scenario_icons.get(scenario, "🔍")
+        st.markdown(f"<div style='text-align: center; color: #0ea5e9; margin: 1rem 0;'>Selected: <strong>{icon} {scenario}</strong></div>", unsafe_allow_html=True)
+        if st.button(f"Analyze My Coverage", key="analyze_btn", use_container_width=True):
+            with st.spinner("Decoding your policy... This may take a moment."):
                 result, error = analyze_policy(client, st.session_state.file_id, scenario)
                 
                 if error:
@@ -847,45 +1479,67 @@ def show_main_app():
     if 'analysis_result' in st.session_state:
         result = st.session_state.analysis_result
         scenario_name = st.session_state.analyzed_scenario
+        scenario_icon = scenario_icons.get(scenario_name, "📊")
         
-        st.markdown("---")
-        st.markdown(f"## 📊 Analysis Results: {scenario_name}")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            out_of_pocket = result.get('total_out_of_pocket', 'N/A')
-            if isinstance(out_of_pocket, (int, float)):
+        with st.container(border=True):
+            st.markdown(f"""
+                <div class="section-header results-section">
+                    <span class="section-icon">{scenario_icon}</span>
+                    <span class="section-title">Analysis Results: {scenario_name}</span>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                out_of_pocket = result.get('total_out_of_pocket', 'N/A')
+                if isinstance(out_of_pocket, (int, float)):
+                    st.metric(
+                        label="Estimated Out-of-Pocket",
+                        value=f"${out_of_pocket:,.0f}"
+                    )
+                else:
+                    st.metric(label="Estimated Out-of-Pocket", value="Unknown")
+            
+            with col2:
+                gaps = result.get('gap_alerts', [])
+                health_score = max(0, 100 - (len(gaps) * 20))
                 st.metric(
-                    label="💰 Estimated Out-of-Pocket",
-                    value=f"${out_of_pocket:,.0f}"
+                    label="Policy Health Score",
+                    value=f"{health_score}/100",
+                    delta=f"{len(gaps)} gaps" if gaps else "No gaps!",
+                    delta_color="off" if gaps else "normal"
                 )
-            else:
-                st.metric(label="💰 Estimated Out-of-Pocket", value="Unknown")
-        
-        with col2:
-            gaps = result.get('gap_alerts', [])
-            health_score = max(0, 100 - (len(gaps) * 20))
-            delta_color = "normal" if health_score >= 60 else "inverse"
-            st.metric(
-                label="🛡️ Policy Health Score",
-                value=f"{health_score}/100",
-                delta=f"{len(gaps)} gaps found" if gaps else "No gaps!",
-                delta_color="off" if gaps else "normal"
-            )
-        
-        deductible = result.get('deductible', 'N/A')
-        if isinstance(deductible, (int, float)):
-            st.info(f"📋 **Policy Deductible:** ${deductible:,.0f}")
+            
+            with col3:
+                deductible = result.get('deductible', 'N/A')
+                if isinstance(deductible, (int, float)):
+                    st.metric(
+                        label="Policy Deductible",
+                        value=f"${deductible:,.0f}"
+                    )
+                else:
+                    st.metric(label="Policy Deductible", value="N/A")
         
         if gaps:
-            st.markdown("### ⚠️ Coverage Gaps Detected")
-            for gap in gaps:
-                st.warning(f"🚨 {gap}")
+            with st.container(border=True):
+                st.markdown("""
+                    <div class="section-header warning-header">
+                        <span class="section-icon">⚠️</span>
+                        <span class="section-title">Coverage Gaps Detected</span>
+                    </div>
+                """, unsafe_allow_html=True)
+                for gap in gaps:
+                    st.markdown(f"""
+                        <div class="gap-alert">
+                            <span class="gap-alert-icon">🚨</span>
+                            <span class="gap-alert-text">{gap}</span>
+                        </div>
+                    """, unsafe_allow_html=True)
         else:
-            st.success("✅ No major coverage gaps detected for this scenario!")
+            st.success("No major coverage gaps detected for this scenario!")
         
-        with st.expander("✅ Covered Items", expanded=True):
+        with st.expander("Covered Items", expanded=True):
             covered = result.get('covered_items', [])
             if covered:
                 df_data = []
@@ -893,7 +1547,7 @@ def show_main_app():
                     if isinstance(item, dict):
                         df_data.append({
                             "Item": item.get('item', 'N/A'),
-                            "Est. Replacement Cost": f"${item.get('est_replacement_cost', 0):,.0f}",
+                            "Est. Replacement": f"${item.get('est_replacement_cost', 0):,.0f}",
                             "Depreciation": f"{item.get('depreciation_pct', 0)}%",
                             "ACV Payout": f"${item.get('acv_payout', 0):,.0f}"
                         })
@@ -904,7 +1558,7 @@ def show_main_app():
             else:
                 st.info("No covered items identified for this scenario.")
         
-        with st.expander("❌ Not Covered", expanded=True):
+        with st.expander("Not Covered", expanded=True):
             not_covered = result.get('not_covered_items', [])
             if not_covered:
                 for item in not_covered:
@@ -915,11 +1569,11 @@ def show_main_app():
             else:
                 st.success("All typical items appear to be covered!")
         
-        with st.expander("📝 Summary & Recommendations"):
-            st.markdown("#### Plain Language Summary")
+        with st.expander("Summary & Recommendations"):
+            st.markdown("**Plain Language Summary**")
             st.info(result.get('plain_summary', 'No summary available.'))
             
-            st.markdown("#### Recommendations")
+            st.markdown("**Recommendations**")
             recommendations = result.get('recommendations', [])
             if recommendations:
                 for rec in recommendations:
@@ -927,9 +1581,14 @@ def show_main_app():
             else:
                 st.info("No specific recommendations at this time.")
     
-    st.markdown("---")
-    
-    with st.expander("📜 Your Analysis History"):
+    with st.container(border=True):
+        st.markdown("""
+            <div class="section-header">
+                <span class="section-icon">📜</span>
+                <span class="section-title">Your Analysis History</span>
+            </div>
+        """, unsafe_allow_html=True)
+        
         user_analyses = get_user_analyses(st.session_state.user_id)
         if user_analyses:
             history_data = []
@@ -943,12 +1602,16 @@ def show_main_app():
         else:
             st.info("No analysis history yet. Upload a policy to get started!")
     
-    st.markdown("---")
     st.markdown("""
-    <div class="footer">
-        <div class="footer-tagline">Understand. Prepare. Protect.</div>
-        <div class="footer-brand">PoliSee Clarity – Insurance made clear</div>
-    </div>
+        <div class="dashboard-footer">
+            <div class="dashboard-footer-tagline">Understand. Prepare. Protect.</div>
+            <div class="dashboard-footer-brand">PoliSee Clarity - Insurance made clear</div>
+            <div class="trust-badges" style="margin-top: 1rem;">
+                <div class="trust-badge">🔒 Secure</div>
+                <div class="trust-badge">🛡️ Private</div>
+                <div class="trust-badge">✨ AI-Powered</div>
+            </div>
+        </div>
     """, unsafe_allow_html=True)
 
 def main():
