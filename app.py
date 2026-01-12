@@ -3,11 +3,26 @@ import os
 import json
 import re
 import bcrypt
+import logging
 from datetime import datetime
 from openai import OpenAI
 import pandas as pd
 
 from models import init_db, SessionLocal, User, PolicyAnalysisResult
+
+# Configure logging for Railway/production compatibility
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Dynamic port for Railway compatibility (Railway sets $PORT)
+PORT = int(os.getenv("PORT", 5000))
+IS_RAILWAY = os.getenv("RAILWAY_ENVIRONMENT") is not None
+IS_REPLIT = os.getenv("REPL_ID") is not None
+
+logger.info(f"Starting PoliSee Clarity - Port: {PORT}, Railway: {IS_RAILWAY}, Replit: {IS_REPLIT}")
 
 st.set_page_config(
     page_title="PoliSee Clarity",
@@ -1414,7 +1429,15 @@ def get_user_analyses(user_id, limit=10):
         db.close()
 
 def get_openai_client():
+    # Try environment variable first (works on Railway, Replit, local)
     api_key = os.environ.get("OPENAI_API_KEY")
+    
+    # Fallback to st.secrets if available (Replit)
+    if not api_key:
+        try:
+            api_key = st.secrets.get("OPENAI_API_KEY")
+        except Exception:
+            pass
     if not api_key:
         return None
     return OpenAI(api_key=api_key)

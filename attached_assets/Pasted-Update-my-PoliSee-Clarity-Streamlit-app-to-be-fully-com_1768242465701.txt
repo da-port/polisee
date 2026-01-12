@@ -1,0 +1,56 @@
+Update my PoliSee Clarity Streamlit app to be fully compatible with Railway.app deployment while keeping it working perfectly in Replit.
+
+Make these exact changes:
+
+1. At the top of main.py, import os and use this to get the port dynamically:
+   import os
+   port = int(os.getenv("PORT", 8501))  # Railway uses $PORT, fallback to 8501 for Replit/local
+
+2. Change the Streamlit run command to:
+   if __name__ == "__main__":
+       import streamlit as st
+       st.set_page_config(page_title="PoliSee Clarity", layout="wide")
+       # ... rest of your app code ...
+       # At the very end, instead of just running, use:
+       # But actually, don't add st.run here – let Railway call streamlit run
+
+   Instead, instruct to run the app via command: streamlit run main.py --server.port $PORT --server.headless true --server.enableCORS false --server.enableXsrfProtection true
+
+3. Add production-friendly flags:
+   - Use os.getenv for all secrets: OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+   - If using st.secrets, keep it but add fallback: if not OPENAI_API_KEY: OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY")
+
+4. Create or update requirements.txt in the root with exact pinned versions for Railway compatibility (common working set for Streamlit + OpenAI + psycopg2):
+   streamlit==1.39.0
+   openai==1.40.0
+   psycopg2-binary==2.9.9
+   python-dotenv==1.0.1  # optional but helpful
+   # Add any other packages your app uses (PyPDF2? etc.)
+
+5. Add a railway.json file (or note to create it) with:
+   {
+     "build": {
+       "builder": "NIXPACKS"
+     },
+     "deploy": {
+       "startCommand": "streamlit run main.py --server.port $PORT --server.headless true --server.enableCORS false --server.enableXsrfProtection true"
+     }
+   }
+
+6. Improve error handling around OpenAI and DB connections:
+   - Wrap OpenAI calls in try/except with st.error("API error: check your key or try later")
+   - For psycopg2: use os.getenv("DATABASE_URL") if Railway Postgres, but keep Replit $DATABASE_URL fallback
+
+7. Add simple logging:
+   import logging
+   logging.basicConfig(level=logging.INFO)
+   logger = logging.getLogger(__name__)
+   # Then logger.info("App starting on port %s", port) etc.
+
+8. Ensure no Replit-specific hacks break on Railway (e.g. remove any Replit-only CSS overrides if they cause issues, or wrap them in if "REPLIT" in os.environ)
+
+9. Keep all existing features: login, dashboard, PDF upload to OpenAI, scenario analysis, Replit DB integration (note: on Railway you'll need to set up a Postgres service and add DATABASE_URL env var)
+
+Generate the updated main.py code with these changes integrated cleanly. Also output the contents of requirements.txt and railway.json as separate code blocks so I can create/add them.
+
+Make sure the app still runs locally/in Replit with no changes needed.
