@@ -1,0 +1,46 @@
+Update my PoliSee Clarity Streamlit app to improve the post-login header and add a modern top-right user dropdown menu:
+
+Current setup has a welcome bar with "Welcome back, [Name]", tagline "Know What's Covered - Before You Need It.", upload area, scenario cards, etc.
+
+Changes to make:
+- Move the Logout button from its current position to the TOP RIGHT corner of the screen (absolute or fixed positioning via CSS)
+- Replace the simple logout button with a user profile dropdown:
+  - Show a small circular avatar (use emoji 👤 or a placeholder image URL like https://ui-avatars.com/api/?name=Test1&background=0ea5e9&color=fff&rounded=true&size=128)
+  - Next to avatar: display user's email or name (e.g. "Test1" or "test1@gmail.com") in small text
+  - When clicked/hovered: open a clean dropdown card/menu below it (dark bg #1e293b, rounded, shadow, teal accents)
+  - Dropdown items (vertical list with hover effects):
+    1. Profile / Account Settings (dummy link or expander for now)
+    2. About PoliSee (opens an expander or modal-like section explaining: "PoliSee Clarity is your personal insurance transparency tool. Upload your homeowners policy PDF, select a disaster scenario, and let AI decode what's covered, what's excluded, and your potential out-of-pocket costs—before disaster strikes. We empower homeowners to understand their coverage, spot gaps early, and make smarter decisions. Understand. Prepare. Protect.")
+    3. Help / FAQ (dummy)
+    4. Logout (red accent on hover, calls logout logic)
+- Use custom CSS for the dropdown: position absolute top-right, z-index high, transition fade/slide, hover scale on items
+- Make avatar clickable to toggle the dropdown (use st.session_state to track open/closed state)
+- Keep the header clean: left-aligned welcome + tagline, right-aligned user dropdown
+- Ensure mobile responsiveness: on small screens, dropdown stacks or becomes full-width if needed; avatar larger for touch
+- Maintain dark navy gradient theme, teal accents (#0ea5e9), rounded cards, shadows
+- Add subtle animation: dropdown slides down on open, items fade in
+
+Regenerate the header/welcome section code first (wrap in a container or use st.columns for left/right alignment), then integrate the dropdown logic with session state.
+
+Example structure:
+if 'dropdown_open' not in st.session_state:
+    st.session_state.dropdown_open = False
+
+# Header columns
+col1, col2 = st.columns([4,1])
+with col1:
+    st.markdown("### Welcome back, Test1")
+    st.markdown("**Know What's Covered - Before You Need It.**")
+with col2:
+    # Avatar + dropdown trigger
+    if st.button("👤 Test1", key="user_menu", help="Menu", use_container_width=True):
+        st.session_state.dropdown_open = not st.session_state.dropdown_open
+    
+    if st.session_state.dropdown_open:
+        with st.expander(" ", expanded=True):  # or custom container
+            st.markdown("About PoliSee...")
+            # other items
+            if st.button("Logout"):
+                # logout code
+
+Apply full CSS overrides at top for positioning, dropdown style, etc.

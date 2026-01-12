@@ -542,6 +542,233 @@ CUSTOM_CSS = """
         font-weight: 500;
     }
     
+    /* User dropdown menu styles */
+    .user-menu-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.75rem;
+    }
+    
+    .user-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid #0ea5e9;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+    
+    .user-avatar:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+    }
+    
+    .user-name-display {
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .user-email-display {
+        color: #64748b;
+        font-size: 0.75rem;
+    }
+    
+    .dropdown-menu {
+        background: rgba(30, 41, 59, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 16px;
+        padding: 0.75rem 0;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        animation: dropdownSlide 0.25s ease-out;
+        min-width: 240px;
+        margin-top: 0.5rem;
+    }
+    
+    @keyframes dropdownSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .dropdown-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        margin-bottom: 0.5rem;
+    }
+    
+    .dropdown-header-name {
+        color: #f1f5f9;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+    
+    .dropdown-header-email {
+        color: #64748b;
+        font-size: 0.8rem;
+    }
+    
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1.25rem;
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    .dropdown-item:hover {
+        background: rgba(14, 165, 233, 0.15);
+        color: #0ea5e9;
+        transform: translateX(4px);
+    }
+    
+    .dropdown-item-icon {
+        font-size: 1.1rem;
+        width: 24px;
+        text-align: center;
+    }
+    
+    .dropdown-divider {
+        height: 1px;
+        background: rgba(71, 85, 105, 0.3);
+        margin: 0.5rem 0;
+    }
+    
+    .dropdown-item-logout {
+        color: #f87171;
+    }
+    
+    .dropdown-item-logout:hover {
+        background: rgba(248, 113, 113, 0.15);
+        color: #ef4444;
+    }
+    
+    .about-section {
+        background: rgba(14, 165, 233, 0.08);
+        border: 1px solid rgba(14, 165, 233, 0.2);
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin: 1rem 0;
+        line-height: 1.6;
+        color: #cbd5e1;
+        font-size: 0.9rem;
+    }
+    
+    .about-section-title {
+        color: #0ea5e9;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* Popover menu styling */
+    [data-testid="stPopover"] > div {
+        background: rgba(30, 41, 59, 0.98) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(71, 85, 105, 0.4) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+        min-width: 260px !important;
+    }
+    
+    [data-testid="stPopoverBody"] {
+        padding: 1rem !important;
+    }
+    
+    .popover-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .popover-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px solid #0ea5e9;
+    }
+    
+    .popover-user-info {
+        flex: 1;
+    }
+    
+    .popover-name {
+        color: #f1f5f9;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .popover-email {
+        color: #64748b;
+        font-size: 0.8rem;
+    }
+    
+    .popover-divider {
+        height: 1px;
+        background: rgba(71, 85, 105, 0.4);
+        margin: 0.75rem 0;
+    }
+    
+    /* Style popover buttons as menu items */
+    [data-testid="stPopoverBody"] button {
+        background: transparent !important;
+        border: none !important;
+        text-align: left !important;
+        justify-content: flex-start !important;
+        padding: 0.6rem 0.75rem !important;
+        font-size: 0.9rem !important;
+        color: #cbd5e1 !important;
+        border-radius: 8px !important;
+        margin: 2px 0 !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    [data-testid="stPopoverBody"] button:hover {
+        background: rgba(14, 165, 233, 0.15) !important;
+        color: #0ea5e9 !important;
+        transform: translateX(4px) !important;
+    }
+    
+    /* User menu trigger button styling */
+    [data-testid="stPopover"] > button {
+        background: rgba(30, 41, 59, 0.6) !important;
+        border: 1px solid rgba(14, 165, 233, 0.3) !important;
+        border-radius: 12px !important;
+        padding: 0.5rem 1rem !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
+    }
+    
+    [data-testid="stPopover"] > button:hover {
+        background: rgba(14, 165, 233, 0.15) !important;
+        border-color: #0ea5e9 !important;
+    }
+    
+    /* Header layout */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+    }
+    
     .dashboard-card {
         background: rgba(30, 41, 59, 0.6);
         backdrop-filter: blur(16px);
@@ -1354,22 +1581,70 @@ def show_main_app():
     user_email = st.session_state.user_email
     user_name = user_email.split('@')[0].title()
     
-    st.markdown(f"""
-        <div class="welcome-bar">
-            <div class="welcome-text">
-                <h2>Welcome back, {user_name}</h2>
-                <div class="welcome-tagline">Know What's Covered - Before You Need It.</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    if 'dropdown_open' not in st.session_state:
+        st.session_state.dropdown_open = False
+    if 'show_about' not in st.session_state:
+        st.session_state.show_about = False
     
-    col1, col2, col3 = st.columns([6, 1, 1])
-    with col2:
-        st.markdown(f"<div style='color: #64748b; font-size: 0.85rem; text-align: right;'>{user_email}</div>", unsafe_allow_html=True)
-    with col3:
-        if st.button("Logout", key="logout_btn"):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
+    avatar_url = f"https://ui-avatars.com/api/?name={user_name}&background=0ea5e9&color=fff&rounded=true&size=128"
+    
+    header_col1, header_col2 = st.columns([4, 1])
+    
+    with header_col1:
+        st.markdown(f"""
+            <div class="welcome-bar">
+                <div class="welcome-text">
+                    <h2>Welcome back, {user_name}</h2>
+                    <div class="welcome-tagline">Know What's Covered - Before You Need It.</div>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with header_col2:
+        with st.popover(f"👤 {user_name}", use_container_width=True):
+            st.markdown(f"""
+                <div class="popover-header">
+                    <img src="{avatar_url}" class="popover-avatar" alt="Avatar">
+                    <div class="popover-user-info">
+                        <div class="popover-name">{user_name}</div>
+                        <div class="popover-email">{user_email}</div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""<div class="popover-divider"></div>""", unsafe_allow_html=True)
+            
+            if st.button("👤 Profile Settings", key="profile_btn", use_container_width=True):
+                st.toast("Profile settings coming soon!")
+            
+            if st.button("❓ Help & FAQ", key="help_btn", use_container_width=True):
+                st.toast("Help & FAQ coming soon!")
+            
+            if st.button("ℹ️ About PoliSee", key="about_btn", use_container_width=True):
+                st.session_state.show_about = True
+            
+            st.markdown("""<div class="popover-divider"></div>""", unsafe_allow_html=True)
+            
+            if st.button("🚪 Logout", key="logout_btn", use_container_width=True):
+                for key in list(st.session_state.keys()):
+                    del st.session_state[key]
+                st.rerun()
+    
+    if st.session_state.get('show_about', False):
+        st.markdown("""
+            <div class="about-section">
+                <div class="about-section-title">About PoliSee Clarity</div>
+                PoliSee Clarity is your personal insurance transparency tool. Upload your homeowners policy PDF, 
+                select a disaster scenario, and let AI decode what's covered, what's excluded, and your potential 
+                out-of-pocket costs—before disaster strikes.
+                <br><br>
+                We empower homeowners to understand their coverage, spot gaps early, and make smarter decisions.
+                <br><br>
+                <strong style="color: #0ea5e9;">Understand. Prepare. Protect.</strong>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button("Close About", key="close_about_btn"):
+            st.session_state.show_about = False
             st.rerun()
     
     client = get_openai_client()
