@@ -18,39 +18,255 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
     }
     
-    .main {
-        background-color: #f8fafc;
-    }
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
     
     .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+        background: linear-gradient(160deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
     }
     
     .main .block-container {
-        padding: 1rem 1rem 3rem 1rem;
-        max-width: 800px;
+        padding: 2rem 1.5rem 4rem 1.5rem;
+        max-width: 480px;
     }
     
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         color: #f8fafc !important;
     }
     
     .stMarkdown p {
+        color: #94a3b8;
+    }
+    
+    .hero-icon {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.4));
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero-tagline {
+        font-size: 1.25rem;
+        font-weight: 500;
+        text-align: center;
+        color: #0ea5e9;
+        text-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+        text-align: center;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .auth-card {
+        background: rgba(30, 41, 59, 0.6);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0;
+        background-color: rgba(15, 23, 42, 0.6);
+        border-radius: 16px;
+        padding: 6px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        height: 48px;
+        border-radius: 12px;
+        color: #94a3b8;
+        font-weight: 600;
+        font-size: 0.95rem;
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        color: white !important;
+    }
+    
+    .stTabs [data-baseweb="tab-highlight"] {
+        display: none;
+    }
+    
+    .stTabs [data-baseweb="tab-border"] {
+        display: none;
+    }
+    
+    .stTextInput > div > div > input {
+        background-color: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(71, 85, 105, 0.5);
+        border-radius: 12px;
+        color: #f1f5f9;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+    
+    .stTextInput > div > div > input:focus {
+        border-color: #0ea5e9;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+    }
+    
+    .stTextInput > div > div > input::placeholder {
+        color: #64748b;
+    }
+    
+    .stTextInput > label {
+        color: #cbd5e1 !important;
+        font-weight: 500;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stButton > button {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        margin-top: 0.5rem;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0);
+    }
+    
+    .divider-text {
+        text-align: center;
+        color: #475569;
+        font-size: 0.85rem;
+        margin: 1.5rem 0;
+        position: relative;
+    }
+    
+    .divider-text::before,
+    .divider-text::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 30%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #334155, transparent);
+    }
+    
+    .divider-text::before { left: 0; }
+    .divider-text::after { right: 0; }
+    
+    .social-btn {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(71, 85, 105, 0.5);
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
         color: #cbd5e1;
+        font-weight: 500;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-bottom: 0.75rem;
+    }
+    
+    .social-btn:hover {
+        background: rgba(30, 41, 59, 0.8);
+        border-color: #475569;
+    }
+    
+    .forgot-link {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    .forgot-link a {
+        color: #0ea5e9;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .forgot-link a:hover {
+        text-decoration: underline;
+    }
+    
+    .landing-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    
+    .footer-tagline {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #0ea5e9;
+        margin-bottom: 1rem;
+    }
+    
+    .trust-badges {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .trust-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: #64748b;
+        font-size: 0.75rem;
     }
     
     .metric-card {
         background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        border-radius: 12px;
+        border-radius: 16px;
         padding: 1.5rem;
         margin: 0.5rem 0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
     }
     
     .metric-value {
@@ -66,58 +282,23 @@ CUSTOM_CSS = """
         letter-spacing: 0.05em;
     }
     
-    .stButton > button {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        width: 100%;
-        transition: all 0.2s ease;
+    .stExpander {
+        background-color: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(71, 85, 105, 0.4);
+        border-radius: 12px;
     }
     
-    .stButton > button:hover {
-        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-    }
-    
-    .alert-warning {
-        background-color: #fef3c7;
-        border-left: 4px solid #f59e0b;
-        padding: 1rem;
-        border-radius: 0 8px 8px 0;
-        margin: 0.5rem 0;
-    }
-    
-    .alert-error {
-        background-color: #fee2e2;
-        border-left: 4px solid #ef4444;
-        padding: 1rem;
-        border-radius: 0 8px 8px 0;
-        margin: 0.5rem 0;
-    }
-    
-    .alert-success {
-        background-color: #d1fae5;
-        border-left: 4px solid #10b981;
-        padding: 1rem;
-        border-radius: 0 8px 8px 0;
-        margin: 0.5rem 0;
+    .stSelectbox > div > div {
+        background-color: rgba(15, 23, 42, 0.8);
+        border-color: rgba(71, 85, 105, 0.5);
+        border-radius: 12px;
     }
     
     .footer {
         text-align: center;
         padding: 2rem 0;
         margin-top: 3rem;
-        border-top: 1px solid #334155;
-    }
-    
-    .footer-tagline {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #60a5fa;
+        border-top: 1px solid rgba(51, 65, 85, 0.5);
     }
     
     .footer-brand {
@@ -126,36 +307,35 @@ CUSTOM_CSS = """
         margin-top: 0.5rem;
     }
     
-    .stExpander {
-        background-color: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 8px;
-    }
-    
-    .stSelectbox > div > div {
-        background-color: #1e293b;
-        border-color: #334155;
-    }
-    
-    .auth-container {
-        background: rgba(30, 41, 59, 0.8);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 1rem 0;
-        border: 1px solid #334155;
-    }
-    
     @media (max-width: 768px) {
         .main .block-container {
-            padding: 0.5rem 0.5rem 2rem 0.5rem;
+            padding: 1rem 1rem 3rem 1rem;
         }
         
-        h1 {
-            font-size: 1.5rem !important;
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero-tagline {
+            font-size: 1.1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 0.9rem;
+        }
+        
+        .auth-card {
+            padding: 1.5rem;
+            border-radius: 20px;
         }
         
         .metric-value {
             font-size: 1.5rem;
+        }
+        
+        .trust-badges {
+            flex-wrap: wrap;
+            gap: 1rem;
         }
     }
 </style>
@@ -325,18 +505,24 @@ Please provide a detailed breakdown of what would be covered, what would not be 
         return None, str(e)
 
 def show_auth_page():
-    st.markdown("# 🏠 PoliSee Clarity")
-    st.markdown("### Understand. Prepare. Protect.")
-    st.markdown("---")
+    st.markdown("""
+        <div class="hero-icon">🏠🛡️</div>
+        <div class="hero-title">PoliSee Clarity</div>
+        <div class="hero-tagline">Know What's Covered – Before You Need It.</div>
+        <div class="hero-subtitle">
+            Upload your policy. Simulate disasters. Get clear answers on coverage, gaps, and costs – powered by AI.
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div class="auth-card">', unsafe_allow_html=True)
     
     tab1, tab2 = st.tabs(["Login", "Register"])
     
     with tab1:
-        st.markdown("#### Welcome Back")
-        login_email = st.text_input("Email", key="login_email", placeholder="your@email.com")
-        login_password = st.text_input("Password", type="password", key="login_password")
+        login_email = st.text_input("Email Address", key="login_email", placeholder="you@example.com")
+        login_password = st.text_input("Password", type="password", key="login_password", placeholder="Enter your password")
         
-        if st.button("Login", key="login_btn"):
+        if st.button("Sign In", key="login_btn"):
             if not login_email or not login_password:
                 st.error("Please fill in all fields.")
             elif not validate_email(login_email):
@@ -347,19 +533,29 @@ def show_auth_page():
                     st.session_state.authenticated = True
                     st.session_state.user_id = user.id
                     st.session_state.user_email = user.email
-                    st.success("Login successful!")
+                    st.success("Welcome back!")
                     st.rerun()
                 else:
                     st.error(error)
+        
+        st.markdown('<div class="forgot-link"><a href="#">Forgot password?</a></div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="divider-text">or continue with</div>', unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown('<div class="social-btn">🍎 Apple</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown('<div class="social-btn">🔵 Google</div>', unsafe_allow_html=True)
     
     with tab2:
-        st.markdown("#### Create Account")
-        reg_email = st.text_input("Email", key="reg_email", placeholder="your@email.com")
-        reg_password = st.text_input("Password", type="password", key="reg_password", 
-                                      help="Minimum 6 characters")
-        reg_confirm = st.text_input("Confirm Password", type="password", key="reg_confirm")
+        reg_email = st.text_input("Email Address", key="reg_email", placeholder="you@example.com")
+        reg_password = st.text_input("Create Password", type="password", key="reg_password", 
+                                      placeholder="Minimum 6 characters")
+        reg_confirm = st.text_input("Confirm Password", type="password", key="reg_confirm",
+                                     placeholder="Re-enter your password")
         
-        if st.button("Register", key="register_btn"):
+        if st.button("Create Account", key="register_btn"):
             if not reg_email or not reg_password or not reg_confirm:
                 st.error("Please fill in all fields.")
             elif not validate_email(reg_email):
@@ -371,9 +567,30 @@ def show_auth_page():
             else:
                 user, error = register_user(reg_email, reg_password)
                 if user:
-                    st.success("Account created! Please log in.")
+                    st.success("Account created successfully! Please sign in.")
                 else:
                     st.error(error)
+        
+        st.markdown('<div class="divider-text">or continue with</div>', unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown('<div class="social-btn">🍎 Apple</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown('<div class="social-btn">🔵 Google</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown("""
+        <div class="landing-footer">
+            <div class="footer-tagline">Understand. Prepare. Protect.</div>
+            <div class="trust-badges">
+                <div class="trust-badge">🔒 256-bit Encryption</div>
+                <div class="trust-badge">🛡️ SOC 2 Compliant</div>
+                <div class="trust-badge">✓ HIPAA Ready</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 def show_main_app():
     col1, col2 = st.columns([3, 1])
