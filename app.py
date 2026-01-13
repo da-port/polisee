@@ -98,6 +98,15 @@ CUSTOM_CSS = """
         animation: fadeInUp 0.8s ease-out;
     }
     
+    .hero-logo {
+        width: 180px;
+        height: auto;
+        display: block;
+        margin: 0 auto 1rem auto;
+        filter: drop-shadow(0 8px 25px rgba(14, 165, 233, 0.3));
+        animation: fadeIn 0.8s ease-out;
+    }
+    
     .hero-icon {
         font-size: 5rem;
         text-align: center;
@@ -1501,9 +1510,19 @@ Please provide a detailed breakdown of what would be covered, what would not be 
         return None, str(e)
 
 def show_auth_page():
-    st.markdown("""
+    import base64
+    
+    logo_path = "attached_assets/polisee_logo.png"
+    try:
+        with open(logo_path, "rb") as f:
+            logo_data = base64.b64encode(f.read()).decode()
+        logo_html = f'<img src="data:image/png;base64,{logo_data}" class="hero-logo" alt="PoliSee Logo">'
+    except Exception:
+        logo_html = '<div class="hero-icon">🏠🛡️</div>'
+    
+    st.markdown(f"""
         <div class="hero-section">
-            <div class="hero-icon">🏠🛡️</div>
+            {logo_html}
             <div class="hero-title">PoliSee Clarity</div>
             <div class="hero-tagline">Know What's Covered – Before You Need It.</div>
             <div class="hero-subtitle">
