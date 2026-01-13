@@ -99,11 +99,12 @@ CUSTOM_CSS = """
     }
     
     .hero-logo {
-        width: 280px;
+        width: 560px;
+        max-width: 90vw;
         height: auto;
         display: block;
-        margin: 0 auto 1.5rem auto;
-        filter: drop-shadow(0 10px 30px rgba(14, 165, 233, 0.35));
+        margin: 0 auto 2rem auto;
+        filter: drop-shadow(0 12px 35px rgba(14, 165, 233, 0.4));
         animation: fadeIn 0.8s ease-out;
     }
     
